@@ -56,7 +56,7 @@ function changeTitleFile(objFile) {
 
 function checkFileFormat(obj) {
     var errorSection = obj.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
-    var fileExtension = ['pdf', 'jpeg', 'png'];
+    var fileExtension = ['pdf', 'jpeg', 'png', 'jpg'];
 
     if (fileExtension.indexOf(obj.value.split('.').pop().toLowerCase()) == -1) {
         //extension invalide

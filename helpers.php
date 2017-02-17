@@ -19,15 +19,15 @@ function mailToApprenti($to, $job){
 }
 
 function uploadFile(&$candidateData, $pathAnnexes, $file, $name){
-    $extension = strrchr($file['name'], '.');
-    $validExt = ['.pdf', '.jpeg', '.png', '.PDF', '.PNG'];
+    $extension = strtolower(strrchr($file['name'], '.'));
+    $validExt = ['.pdf', '.jpeg', '.png', '.jpg'];
     $filename = $name . $extension;
-    
+
     //-> dataValidator
     if(!in_array($extension, $validExt)){
         $erreur = "uploadError";
     }
-    
+
     if(!isset($erreur)){
         $filename = checkChars($filename);
         move_uploaded_file($file['tmp_name'], $pathAnnexes . $filename);
@@ -51,7 +51,7 @@ function uploadAllFiles($pathAnnexes, $postedFiles, $candidateData){
     uploadFile($candidateData, $pathAnnexes, $postedFiles['idCard'], "carte-identite");
     uploadFile($candidateData, $pathAnnexes, $postedFiles['cv'], "curriculum-vitae");
     uploadFile($candidateData, $pathAnnexes, $postedFiles['lettre'], "lettre-motivation");
-    
+
     for($i=1; $i<=9; $i++){
         if(array_key_exists('certifs'.$i, $postedFiles)){
             if(!($postedFiles['certifs'.$i]['name'] == "")) {
@@ -59,7 +59,7 @@ function uploadAllFiles($pathAnnexes, $postedFiles, $candidateData){
             }
         }
     }
-    
+
     if($candidateData->formation=="polyMecanicien"){
         uploadFile($candidateData, $pathAnnexes, $postedFiles['gimch'], "certificat-gimch");
     }
